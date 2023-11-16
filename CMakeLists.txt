@@ -1,0 +1,31 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
+
+PROJECT(Astar)
+
+SET(PLATFORM x86_64)
+# set output dir
+SET(CMAKE_CXX_STANDARD 11)
+SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${PLATFORM}/lib) #set library output dir
+SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${PLATFORM}/lib) #set library output dir
+SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${PLATFORM}/bin) #set executable file output dir
+
+IF (NOT CMAKE_BUILD_TYPE)
+    SET(CMAKE_BUILD_TYPE Release)
+ENDIF ()
+
+# find the lib directory
+SET(LIB_DIRECTORY ${PROJECT_SOURCE_DIR}/lib/)
+
+#For project and unit test
+INCLUDE_DIRECTORIES(
+        ${PROJECT_SOURCE_DIR}/project
+)
+
+# Turn On/Off the test case
+OPTION(UNIT_TEST "Open unit test" OFF)
+IF(UNIT_TEST)
+    ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/unit_test)
+ELSE()
+    ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/project)
+ENDIF()
+
